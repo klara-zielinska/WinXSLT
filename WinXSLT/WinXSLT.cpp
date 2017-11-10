@@ -18,6 +18,7 @@
 
 #include "stdafx.h"
 #include "Window.h"
+#include "WindowController.h"
 
 using namespace WinXSLT;
 XALAN_USING_XERCES(XMLPlatformUtils)
@@ -26,12 +27,17 @@ XALAN_USING_XALAN(XalanTransformer)
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
 {
-	XMLPlatformUtils::Initialize();
-	XalanTransformer::initialize();
+    XMLPlatformUtils::Initialize();
+    XalanTransformer::initialize();
 
-	Application::EnableVisualStyles();
-	Application::SetCompatibleTextRenderingDefault(false); 
-	Application::Run(gcnew Window());
+    Application::EnableVisualStyles();
+    Application::SetCompatibleTextRenderingDefault(false);
 
-	return 0;
+    Window^ window               = gcnew Window();
+    WindowController^ controller = gcnew WindowController(window);
+    window->SetController(controller);
+
+    Application::Run(window);
+
+    return 0;
 }

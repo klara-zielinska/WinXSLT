@@ -175,16 +175,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="tools.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="WindowController.cpp" />
     <ClCompile Include="WinXSLT.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IWindowController.h" />
     <ClInclude Include="tools.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Window.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="WindowController.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
