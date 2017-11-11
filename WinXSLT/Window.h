@@ -83,7 +83,10 @@ namespace WinXSLT {
 
         void AddLog(String^ entry)
         {
-            logsBox->Items->Insert(0, entry);
+            // the figure space (\u2007) is added, because width of items
+            // in a list box is badly calcualted
+            logsBox->Items->Add(entry + L"\u2007");
+            logsBox->TopIndex = logsBox->Items->Count - 1;
             logsBox->Refresh();
         }
 
@@ -129,10 +132,11 @@ namespace WinXSLT {
     private: System::Windows::Forms::FolderBrowserDialog^  sourceFolderDialog;
 
     private: System::Windows::Forms::Label^         label2;
-    private: System::Windows::Forms::ListBox^       logsBox;
+
     private: System::Windows::Forms::Label^  label3;
     private: System::Windows::Forms::Button^  loadFromFileButton;
     private: System::Windows::Forms::OpenFileDialog^  xsltFileDialog;
+    private: System::Windows::Forms::ListBox^  logsBox;
 
 
              System::ComponentModel::Container ^components;
@@ -153,10 +157,10 @@ namespace WinXSLT {
             this->sourceFolderButton = (gcnew System::Windows::Forms::Button());
             this->sourceFolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
             this->label2 = (gcnew System::Windows::Forms::Label());
-            this->logsBox = (gcnew System::Windows::Forms::ListBox());
             this->label3 = (gcnew System::Windows::Forms::Label());
             this->loadFromFileButton = (gcnew System::Windows::Forms::Button());
             this->xsltFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
+            this->logsBox = (gcnew System::Windows::Forms::ListBox());
             this->SuspendLayout();
             // 
             // schemeBox
@@ -224,14 +228,6 @@ namespace WinXSLT {
             this->label2->TabIndex = 7;
             this->label2->Text = L"Logs";
             // 
-            // logsBox
-            // 
-            this->logsBox->FormattingEnabled = true;
-            this->logsBox->Location = System::Drawing::Point(467, 127);
-            this->logsBox->Name = L"logsBox";
-            this->logsBox->Size = System::Drawing::Size(287, 160);
-            this->logsBox->TabIndex = 8;
-            // 
             // label3
             // 
             this->label3->AutoSize = true;
@@ -250,6 +246,15 @@ namespace WinXSLT {
             this->loadFromFileButton->Text = L"Load from file";
             this->loadFromFileButton->UseVisualStyleBackColor = true;
             this->loadFromFileButton->Click += gcnew System::EventHandler(this, &Window::loadFromFileClick);
+            // 
+            // logsBox
+            // 
+            this->logsBox->FormattingEnabled = true;
+            this->logsBox->HorizontalScrollbar = true;
+            this->logsBox->Location = System::Drawing::Point(467, 127);
+            this->logsBox->Name = L"logsBox";
+            this->logsBox->Size = System::Drawing::Size(287, 160);
+            this->logsBox->TabIndex = 8;
             // 
             // Window
             // 
