@@ -25,6 +25,7 @@ namespace WinXSLT {
     {
     public:
         virtual void LoadXSLT()           = 0;
+        virtual void SaveXSLT()           = 0;
         virtual void ChooseSourceFile()   = 0;
         virtual void ChooseSourceFolder() = 0;
         virtual void Transform()          = 0;

@@ -33,17 +33,36 @@ XALAN_USING_XALAN(XSLTResultTarget)
 
 void WindowController::LoadXSLT()
 {
-    window->XSLTFileDialog->FileName = "";
+    window->XSLTLoadFileDialog->FileName = "";
 
-    if (window->XSLTFileDialog->ShowDialog() == DialogResult::OK)
+    if (window->XSLTLoadFileDialog->ShowDialog() == DialogResult::OK)
     {
         Stream^       stream;
         StreamReader^ reader;
 
-        if ( (stream = window->XSLTFileDialog->OpenFile()) != nullptr )
+        if ( (stream = window->XSLTLoadFileDialog->OpenFile()) != nullptr )
         {
             reader = gcnew StreamReader(stream);
             window->XSLT = reader->ReadToEnd();
+            stream->Close();
+         }
+    }
+}
+
+void WindowController::SaveXSLT()
+{
+    window->XSLTSaveFileDialog->FileName = "";
+
+    if (window->XSLTSaveFileDialog->ShowDialog() == DialogResult::OK)
+    {
+        Stream^       stream;
+        StreamWriter^ writer;
+
+        if ( (stream = window->XSLTSaveFileDialog->OpenFile()) != nullptr )
+        {
+            writer = gcnew StreamWriter(stream);
+            writer->Write(window->XSLT);
+            writer->Flush();
             stream->Close();
          }
     }

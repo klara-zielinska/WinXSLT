@@ -31,6 +31,7 @@ namespace WinXSLT {
 
     public:
         virtual void LoadXSLT()           override;
+        virtual void SaveXSLT()           override;
         virtual void ChooseSourceFile()   override;
         virtual void ChooseSourceFolder() override;
         virtual void Transform()          override;

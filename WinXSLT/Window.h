@@ -66,9 +66,14 @@ namespace WinXSLT {
             }
         }
         
-        property OpenFileDialog^ XSLTFileDialog
+        property OpenFileDialog^ XSLTLoadFileDialog
         {
-            OpenFileDialog^ get() { return xsltFileDialog; }
+            OpenFileDialog^ get() { return xsltLoadFileDialog; }
+        }
+        
+        property SaveFileDialog^ XSLTSaveFileDialog
+        {
+            SaveFileDialog^ get() { return xsltSaveFileDialog; }
         }
 
         property OpenFileDialog^ SourceFileDialog
@@ -134,9 +139,14 @@ namespace WinXSLT {
     private: System::Windows::Forms::Label^         label2;
 
     private: System::Windows::Forms::Label^  label3;
-    private: System::Windows::Forms::Button^  loadFromFileButton;
-    private: System::Windows::Forms::OpenFileDialog^  xsltFileDialog;
+private: System::Windows::Forms::Button^  loadButton;
+
+    private: System::Windows::Forms::OpenFileDialog^  xsltLoadFileDialog;
+
     private: System::Windows::Forms::ListBox^  logsBox;
+private: System::Windows::Forms::SaveFileDialog^  xsltSaveFileDialog;
+private: System::Windows::Forms::Button^  saveButton;
+
 
 
              System::ComponentModel::Container ^components;
@@ -158,9 +168,11 @@ namespace WinXSLT {
             this->sourceFolderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
             this->label2 = (gcnew System::Windows::Forms::Label());
             this->label3 = (gcnew System::Windows::Forms::Label());
-            this->loadFromFileButton = (gcnew System::Windows::Forms::Button());
-            this->xsltFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
+            this->loadButton = (gcnew System::Windows::Forms::Button());
+            this->xsltLoadFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
             this->logsBox = (gcnew System::Windows::Forms::ListBox());
+            this->xsltSaveFileDialog = (gcnew System::Windows::Forms::SaveFileDialog());
+            this->saveButton = (gcnew System::Windows::Forms::Button());
             this->SuspendLayout();
             // 
             // schemeBox
@@ -175,9 +187,11 @@ namespace WinXSLT {
             // 
             // sourcePathBox
             // 
+            this->sourcePathBox->Font = (gcnew System::Drawing::Font(L"Consolas", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+                static_cast<System::Byte>(238)));
             this->sourcePathBox->Location = System::Drawing::Point(467, 28);
             this->sourcePathBox->Name = L"sourcePathBox";
-            this->sourcePathBox->Size = System::Drawing::Size(296, 20);
+            this->sourcePathBox->Size = System::Drawing::Size(296, 23);
             this->sourcePathBox->TabIndex = 1;
             // 
             // sourceFileButton
@@ -194,7 +208,7 @@ namespace WinXSLT {
             // 
             this->transformButton->Location = System::Drawing::Point(467, 80);
             this->transformButton->Name = L"transformButton";
-            this->transformButton->Size = System::Drawing::Size(294, 24);
+            this->transformButton->Size = System::Drawing::Size(294, 20);
             this->transformButton->TabIndex = 4;
             this->transformButton->Text = L"Transform";
             this->transformButton->UseVisualStyleBackColor = true;
@@ -222,7 +236,7 @@ namespace WinXSLT {
             // label2
             // 
             this->label2->AutoSize = true;
-            this->label2->Location = System::Drawing::Point(467, 111);
+            this->label2->Location = System::Drawing::Point(467, 110);
             this->label2->Name = L"label2";
             this->label2->Size = System::Drawing::Size(30, 13);
             this->label2->TabIndex = 7;
@@ -237,31 +251,42 @@ namespace WinXSLT {
             this->label3->TabIndex = 9;
             this->label3->Text = L"XSLT code";
             // 
-            // loadFromFileButton
+            // loadButton
             // 
-            this->loadFromFileButton->Location = System::Drawing::Point(15, 267);
-            this->loadFromFileButton->Name = L"loadFromFileButton";
-            this->loadFromFileButton->Size = System::Drawing::Size(446, 20);
-            this->loadFromFileButton->TabIndex = 10;
-            this->loadFromFileButton->Text = L"Load from file";
-            this->loadFromFileButton->UseVisualStyleBackColor = true;
-            this->loadFromFileButton->Click += gcnew System::EventHandler(this, &Window::loadFromFileClick);
+            this->loadButton->Location = System::Drawing::Point(15, 267);
+            this->loadButton->Name = L"loadButton";
+            this->loadButton->Size = System::Drawing::Size(220, 20);
+            this->loadButton->TabIndex = 10;
+            this->loadButton->Text = L"Load";
+            this->loadButton->UseVisualStyleBackColor = true;
+            this->loadButton->Click += gcnew System::EventHandler(this, &Window::loadClick);
             // 
             // logsBox
             // 
             this->logsBox->FormattingEnabled = true;
             this->logsBox->HorizontalScrollbar = true;
-            this->logsBox->Location = System::Drawing::Point(467, 127);
+            this->logsBox->Location = System::Drawing::Point(467, 126);
             this->logsBox->Name = L"logsBox";
             this->logsBox->Size = System::Drawing::Size(287, 160);
             this->logsBox->TabIndex = 8;
+            // 
+            // saveButton
+            // 
+            this->saveButton->Location = System::Drawing::Point(241, 267);
+            this->saveButton->Name = L"saveButton";
+            this->saveButton->Size = System::Drawing::Size(220, 20);
+            this->saveButton->TabIndex = 11;
+            this->saveButton->Text = L"Save";
+            this->saveButton->UseVisualStyleBackColor = true;
+            this->saveButton->Click += gcnew System::EventHandler(this, &Window::saveClick);
             // 
             // Window
             // 
             this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
             this->ClientSize = System::Drawing::Size(773, 298);
-            this->Controls->Add(this->loadFromFileButton);
+            this->Controls->Add(this->saveButton);
+            this->Controls->Add(this->loadButton);
             this->Controls->Add(this->label3);
             this->Controls->Add(this->logsBox);
             this->Controls->Add(this->label2);
@@ -272,6 +297,7 @@ namespace WinXSLT {
             this->Controls->Add(this->sourcePathBox);
             this->Controls->Add(this->schemeBox);
             this->Name = L"Window";
+            this->ShowIcon = false;
             this->Text = L"WinXSLT";
             this->ResumeLayout(false);
             this->PerformLayout();
@@ -279,10 +305,16 @@ namespace WinXSLT {
         }
 #pragma endregion
 
-        System::Void loadFromFileClick(
+        System::Void loadClick(
             System::Object^  sender, System::EventArgs^  e)
         {
             controller->LoadXSLT();
+        }
+
+        System::Void saveClick(
+            System::Object^  sender, System::EventArgs^  e) 
+        {
+            controller->SaveXSLT();
         }
 
         System::Void fileClick(
@@ -302,5 +334,5 @@ namespace WinXSLT {
         {
             controller->Transform();
         }
-    };
+};
 }
