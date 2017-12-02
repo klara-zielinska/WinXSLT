@@ -12,9 +12,31 @@ TARGET = WinXSLT
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        window.cpp
+SOURCES += src/main.cpp \
+    src/tools.cpp \
+    src/WindowController.cpp \
+    src/Window.cpp
 
-HEADERS  += window.h
+HEADERS  += \
+    src/tools.h \
+    src/WindowController.h \
+    src/IWindowController.h \
+    src/Window.h
 
-FORMS    += window.ui
+FORMS    += src/window.ui
+
+INCLUDEPATH += $$(XALANCINCLUDE) \
+    $$(XALANCNLS) \
+    $$(XERCESCROOT)/include
+
+LIBS += -L$$(XERCESCROOT)/lib \
+    -L$$(XALANCLIB) \
+    -lxerces-c_3 \
+    -lXalan-C_1
+
+DISTFILES +=
+
+RESOURCES += \
+    resources.qrc
+
+RC_ICONS = resources/icon.ico

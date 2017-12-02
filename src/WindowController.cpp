@@ -23,6 +23,7 @@
 #include <QFileDialog>
 #include <QString>
 #include <QTextStream>
+#include <QXmlStreamReader>
 #include <xalanc/XalanTransformer/XalanTransformer.hpp>
 
 XALAN_USING_XALAN(XalanTransformer)
@@ -70,7 +71,7 @@ void WindowController::ChooseSourceFolder()
     QString dirName = QFileDialog::getExistingDirectory(
         window, "Choose", "", QFileDialog::ShowDirsOnly);
 
-    window->SetSourcePath(dirName + "\\*.xml");
+    window->SetSourcePath(dirName + "/*.xml");
 }
 
 

@@ -26,7 +26,8 @@ QList<QDir> findDirs(QList<QDir>& dirsToSearch, const QString& pattern)
     foreach (const QDir& dir, dirsToSearch)
     {
         QFileInfoList childDirs =
-            dir.entryInfoList(QStringList(pattern), QDir::Dirs);
+            dir.entryInfoList(QStringList(pattern),
+                              QDir::Dirs | QDir::NoDotAndDotDot);
 
         foreach (const QFileInfo& childDir, childDirs)
             newDirsToSearch.append(QDir(childDir.absoluteFilePath() + "/"));
