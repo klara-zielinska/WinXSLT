@@ -16,29 +16,30 @@
  * limitations under the License.
  */
 
-#pragma once
+#ifndef XMLHIGHLIGHT_H
+#define XMLHIGHLIGHT_H
 
-#include <QString>
-#include <QStringList>
-#include <QFileInfoList>
-
+#include "XmlReader.h"
 
 
 
-/// <summary>
-/// Returns the size of an array
-/// </summary>
 
-template<class T, size_t N>
-constexpr size_t size(T (&)[N]) { return N; }
+class XmlHighlight
+{
+public:
+    static QString InHtml(const QString& xml);
 
+private:
+    static const QString tagStyle;
+    static const QString attrNameStyle;
+    static const QString attrEqStyle;
+    static const QString attrValStyle;
+    static const QString textStyle;
+    static const QString commentStyle;
+    static const QString invTagStyle;
+    static const QString defaultStyle;
 
-/// <summary>
-/// Finds all files specified by a path pattern.
-/// </summary>
-///
-/// <param name=pathPattern>
-/// A path that can contain wildcards ? and *.
-/// </param>
+    static const QString stylesByTokenType[XmlToken::TypeCount];
+};
 
-QFileInfoList GetFilesByPattern(const QString& path);
+#endif // XMLHIGHLIGHT_H

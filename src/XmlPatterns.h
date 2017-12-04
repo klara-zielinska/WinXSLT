@@ -16,29 +16,35 @@
  * limitations under the License.
  */
 
-#pragma once
+#ifndef XmlPatterns_H
+#define XmlPatterns_H
 
 #include <QString>
-#include <QStringList>
-#include <QFileInfoList>
+#include <QRegularExpression>
 
 
 
 
-/// <summary>
-/// Returns the size of an array
-/// </summary>
-
-template<class T, size_t N>
-constexpr size_t size(T (&)[N]) { return N; }
+// TO DO: CDATA support
+// TO DO: correct the grammar
 
 
-/// <summary>
-/// Finds all files specified by a path pattern.
-/// </summary>
-///
-/// <param name=pathPattern>
-/// A path that can contain wildcards ? and *.
-/// </param>
+class XmlPatterns
+{
+public:
+    enum Level {Open, InTag, InAttrs, InAttr, InVal};
+    static const int LevelCount = 5;
 
-QFileInfoList GetFilesByPattern(const QString& path);
+    static const QRegularExpression openPattern;
+    static const QRegularExpression inTagPattern;
+    static const QRegularExpression inAttrsPattern;
+    static const QRegularExpression inAttrPattern;
+    static const QRegularExpression inValPattern;
+
+    static const QRegularExpression *const patterns[LevelCount];
+    static const int     capGroupsCount[LevelCount];
+    static const QString capGroups[LevelCount][4];
+};
+
+
+#endif // XmlPatterns_H

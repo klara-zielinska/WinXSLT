@@ -20,6 +20,8 @@
 #include <QDir>
 
 
+
+
 QList<QDir> findDirs(QList<QDir>& dirsToSearch, const QString& pattern)
 {
     QList<QDir> newDirsToSearch;

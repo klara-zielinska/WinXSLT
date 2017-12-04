@@ -16,29 +16,44 @@
  * limitations under the License.
  */
 
-#pragma once
+#ifndef XMLREADER_H
+#define XMLREADER_H
 
 #include <QString>
-#include <QStringList>
-#include <QFileInfoList>
+#include "XmlPatterns.h"
 
 
 
 
-/// <summary>
-/// Returns the size of an array
-/// </summary>
+struct XmlToken
+{
+    enum Type {TagOpen, TagClose, TagName, AttrName, AttrEq, AttrValue, InS,
+               Text, Comment, End, InvalidTag};
+    static const int TypeCount = 11;
 
-template<class T, size_t N>
-constexpr size_t size(T (&)[N]) { return N; }
+    Type type;
+    QString text;
+};
 
 
-/// <summary>
-/// Finds all files specified by a path pattern.
-/// </summary>
-///
-/// <param name=pathPattern>
-/// A path that can contain wildcards ? and *.
-/// </param>
+class XmlReader
+{
+public:
+    XmlReader(const QString& xml);
+    XmlToken NextToken();
 
-QFileInfoList GetFilesByPattern(const QString& path);
+private:
+    static XmlPatterns::Level nextLevel(
+            XmlPatterns::Level l, XmlToken::Type t);
+
+    static XmlToken::Type capGroupToTokenType(
+            XmlPatterns::Level l, int capGroup);
+
+    static XmlToken matchToToken(
+            XmlPatterns::Level l, const QRegularExpressionMatch& match);
+
+    QString            xml;
+    XmlPatterns::Level level;
+};
+
+#endif // XMLREADER_H

@@ -1,5 +1,26 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements. See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership. The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the  "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include "Window.h"
 #include "ui_window.h"
+#include "XmlHighlight.h"
+
+
 
 
 Window::Window(QWidget *parent) :
@@ -72,4 +93,20 @@ void Window::on_targetFolderButton_clicked()
 void Window::on_transformButton_clicked()
 {
     controller->Transform();
+}
+
+void Window::on_xsltBox_textChanged()
+{
+    ui->xsltBox->blockSignals(true);
+
+    int tpos     = ui->xsltBox->textCursor().position();
+
+    QString html = XmlHighlight::InHtml(ui->xsltBox->toPlainText());
+    ui->xsltBox->setHtml(html);
+
+    QTextCursor cur = ui->xsltBox->textCursor();
+    cur.setPosition(tpos);
+    ui->xsltBox->setTextCursor(cur);
+
+    ui->xsltBox->blockSignals(false);
 }

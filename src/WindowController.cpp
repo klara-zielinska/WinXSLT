@@ -26,11 +26,14 @@
 #include <QXmlStreamReader>
 #include <xalanc/XalanTransformer/XalanTransformer.hpp>
 
+
+
+
 XALAN_USING_XALAN(XalanTransformer)
 XALAN_USING_XALAN(XSLTInputSource)
 XALAN_USING_XALAN(XSLTResultTarget)
-
 using namespace std;
+
 
 
 void WindowController::LoadXSLT()
