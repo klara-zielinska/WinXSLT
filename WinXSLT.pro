@@ -34,14 +34,33 @@ HEADERS  += \
 FORMS    += \
     src/Window.ui
 
-INCLUDEPATH += $$(XALANCINCLUDE) \
-    $$(XALANCNLS) \
-    $$(XERCESCROOT)/include
+INCLUDEPATH += $$(XALANCROOT)/c/src \
+    $$(XERCESCROOT)/src
+
+debug {
+INCLUDEPATH += $$(XALANCROOT)/c/Build/Win64/VC10/Debug/Nls/Include
+}
+
+release {
+INCLUDEPATH += $$(XALANCROOT)/c/Build/Win64/VC10/Release/Nls/Include
+}
 
 LIBS += -L$$(XERCESCROOT)/lib \
-    -L$$(XALANCLIB) \
+    -L$$(XALANCLIB)
+
+debug {
+LIBS += -L$$(XERCESCROOT)/Build/Win64/VC10/Debug \
+    -L$$(XALANCROOT)/c/Build/Win64/VC10/Debug \
+    -lxerces-c_3D \
+    -lXalan-C_1D
+}
+
+release {
+LIBS += -L$$(XERCESCROOT)/Build/Win64/VC10/Release \
+    -L$$(XALANCROOT)/c/Build/Win64/VC10/Release \
     -lxerces-c_3 \
     -lXalan-C_1
+}
 
 DISTFILES +=
 
