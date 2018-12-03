@@ -24,14 +24,19 @@
 #include <QString>
 #include <QTextStream>
 #include <QXmlStreamReader>
-#include <xalanc/XalanTransformer/XalanTransformer.hpp>
+#include <libxslt/xslt.h>
+#include <libxslt/xsltInternals.h>
+#include <libxslt/transform.h>
+#include <libxslt/xsltutils.h>
+#include "xsltex.h"
+//#include <xalanc/XalanTransformer/XalanTransformer.hpp>
 
 
 
 
-XALAN_USING_XALAN(XalanTransformer)
-XALAN_USING_XALAN(XSLTInputSource)
-XALAN_USING_XALAN(XSLTResultTarget)
+//XALAN_USING_XALAN(XalanTransformer)
+//XALAN_USING_XALAN(XSLTInputSource)
+//XALAN_USING_XALAN(XSLTResultTarget)
 using namespace std;
 
 
@@ -77,56 +82,63 @@ void WindowController::ChooseSourceFolder()
     window->SetSourcePath(dirName + "/*.xml");
 }
 
-
-istringstream readFileToString(const QFileInfo& ifile)
-{
-    QFile file(ifile.absoluteFilePath());
-    file.open(QFile::ReadOnly);
-    QString text = QTextStream(&file).readAll();
-    istringstream stream(text.toStdString());
-    file.close();
-    return stream;
-}
-
-void writeSStreamToFile(
-        const ostringstream& istream, const QFileInfo& ifile)
-{
-    QFile file(ifile.absoluteFilePath());
-    file.open(QFile::WriteOnly);
-    QTextStream ostream(&file);
-    ostream << QString::fromStdString(istream.str());
-    ostream.flush();
-    file.close();
-}
-
 void WindowController::Transform()
 {
+    try {
+
     QString       sourcePath  = window->GetSourcePath();
     QFileInfoList sourceFiles = GetFilesByPattern(sourcePath);
 
+    string    xsltStr = window->GetXSLT().toStdString();
+    xmlDocPtr xsltDoc = xmlParseDocEx(reinterpret_cast<const xmlChar*>(
+                                      xsltStr.c_str()));
+    xsltStylesheetPtr xsltStylesheet = xsltParseStylesheetDocEx(xsltDoc);
+
     foreach (const QFileInfo& sourceFile, sourceFiles)
+    try
     {
-        istringstream sourceStream = readFileToString(sourceFile);
-        XSLTInputSource source(sourceStream);
+        QByteArray docPath = sourceFile.absoluteFilePath().toLocal8Bit();
+        xmlDocPtr  doc     = xmlParseFileEx(docPath);
+        xmlDocPtr  resDoc  = xsltApplyStylesheetEx(xsltStylesheet, doc,
+                                                   { nullptr });
+        FILE* docFile = fopen(docPath, "w");
+        if (docFile == nullptr) throw std::exception();
+        xsltSaveResultToFileEx(docFile, resDoc, xsltStylesheet);
+        fclose(docFile);
 
-        ostringstream targetStream;
-        XSLTResultTarget target(targetStream);
+        window->AddLog(sourceFile.absoluteFilePath() + " OK");
+    }
+    catch (const std::exception& ex)
+    {
+        window->AddLog(sourceFile.absoluteFilePath() + " Fail");
+    }
 
-        istringstream schemeStream(
-            window->GetXSLT().toStdString());
-        XSLTInputSource scheme(&schemeStream);
+//        istringstream sourceStream = readFileToString(sourceFile);
+//        XSLTInputSource source(sourceStream);
+
+//        ostringstream targetStream;
+//        XSLTResultTarget target(targetStream);
+
+//        istringstream schemeStream(
+//            window->GetXSLT().toStdString());
+//        XSLTInputSource scheme(&schemeStream);
                 
-        XalanTransformer* transformer = new XalanTransformer();
-        int res = transformer->transform(source, scheme, target);
-        if (res == 0)
-        {
-            writeSStreamToFile(targetStream, sourceFile);
-            window->AddLog(sourceFile.absoluteFilePath() + " OK");
-        }
-        else
-            window->AddLog(sourceFile.absoluteFilePath() + " Fail");
+//        XalanTransformer* transformer = new XalanTransformer();
+//        int res = transformer->transform(source, scheme, target);
+//        if (res == 0)
+//        {
+//            writeSStreamToFile(targetStream, sourceFile);
+//            window->AddLog(sourceFile.absoluteFilePath() + " OK");
+//        }
+//        else
+//            window->AddLog(sourceFile.absoluteFilePath() + " Fail");
 
-        delete transformer;
+//        delete transformer;
+
+    }
+    catch (const std::exception& ex)
+    {
+        window->AddLog("Fatal error");
     }
 }
 

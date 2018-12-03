@@ -18,8 +18,10 @@
 
 #include "tools.h"
 #include <QDir>
+#include <QTextStream>
+#include <sstream>
 
-
+using namespace std;
 
 
 QList<QDir> findDirs(QList<QDir>& dirsToSearch, const QString& pattern)
@@ -63,7 +65,26 @@ QDir rootDir(const QString& rootPath)
 #endif
 }
 
+istringstream readFileToString(const QFileInfo& ifile)
+{
+    QFile file(ifile.absoluteFilePath());
+    file.open(QFile::ReadOnly);
+    QString text = QTextStream(&file).readAll();
+    istringstream stream(text.toStdString());
+    file.close();
+    return stream;
+}
 
+void writeSStreamToFile(
+        const ostringstream& istream, const QFileInfo& ifile)
+{
+    QFile file(ifile.absoluteFilePath());
+    file.open(QFile::WriteOnly);
+    QTextStream ostream(&file);
+    ostream << QString::fromStdString(istream.str());
+    ostream.flush();
+    file.close();
+}
 
 QFileInfoList GetFilesByPattern(const QString& path)
 {

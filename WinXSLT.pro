@@ -20,7 +20,8 @@ SOURCES += src/main.cpp \
     src/Window.cpp \
     src/XmlReader.cpp \
     src/XmlPatterns.cpp \
-    src/XmlHighlight.cpp
+    src/XmlHighlight.cpp \
+    src/xsltex.cpp
 
 HEADERS  += \
     src/tools.h \
@@ -29,38 +30,42 @@ HEADERS  += \
     src/Window.h \
     src/XmlReader.h \
     src/XmlPatterns.h \
-    src/XmlHighlight.h
+    src/XmlHighlight.h \
+    src/xsltex.h
 
 FORMS    += \
     src/Window.ui
 
-INCLUDEPATH += $$(XALANCROOT)/c/src \
-    $$(XERCESCROOT)/src
+INCLUDEPATH += /usr/include/libxml2
+#    $$(XALANCROOT)/c/src \
+#    $$(XERCESCROOT)/src
 
 debug {
-INCLUDEPATH += $$(XALANCROOT)/c/Build/Win64/VC10/Debug/Nls/Include
+//INCLUDEPATH += $$(XALANCROOT)/c/Build/Win64/VC10/Debug/Nls/Include
 }
 
 release {
-INCLUDEPATH += $$(XALANCROOT)/c/Build/Win64/VC10/Release/Nls/Include
+//INCLUDEPATH += $$(XALANCROOT)/c/Build/Win64/VC10/Release/Nls/Include
 }
 
-LIBS += -L$$(XERCESCROOT)/lib \
-    -L$$(XALANCLIB)
+LIBS += -lxml2 \
+    -lxslt
+#-L$$(XERCESCROOT)/lib \
+#    -L$$(XALANCLIB)
 
-debug {
-LIBS += -L$$(XERCESCROOT)/Build/Win64/VC10/Debug \
-    -L$$(XALANCROOT)/c/Build/Win64/VC10/Debug \
-    -lxerces-c_3D \
-    -lXalan-C_1D
-}
+#debug {
+#LIBS += -L$$(XERCESCROOT)/Build/Win64/VC10/Debug \
+#    -L$$(XALANCROOT)/c/Build/Win64/VC10/Debug \
+#    -lxerces-c_3D \
+#    -lXalan-C_1D
+#}
 
-release {
-LIBS += -L$$(XERCESCROOT)/Build/Win64/VC10/Release \
-    -L$$(XALANCROOT)/c/Build/Win64/VC10/Release \
-    -lxerces-c_3 \
-    -lXalan-C_1
-}
+#release {
+#LIBS += -L$$(XERCESCROOT)/Build/Win64/VC10/Release \
+#    -L$$(XALANCROOT)/c/Build/Win64/VC10/Release \
+#    -lxerces-c_3 \
+#    -lXalan-C_1
+#}
 
 DISTFILES +=
 

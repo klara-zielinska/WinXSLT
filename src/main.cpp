@@ -21,26 +21,29 @@
 #include "WindowController.h"
 #include <QApplication>
 #include <QRegularExpression>
-#include <xercesc/util/PlatformUtils.hpp>
-#include <xercesc/sax2/LexicalHandler.hpp>
-#include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <xercesc/sax2/XMLReaderFactory.hpp>
-#include <xalanc/Include/PlatformDefinitions.hpp>
-#include <xalanc/XalanTransformer/XalanTransformer.hpp>
+#include <libxml/DOCBparser.h>
+//#include <xercesc/util/PlatformUtils.hpp>
+//#include <xercesc/sax2/LexicalHandler.hpp>
+//#include <xercesc/sax2/SAX2XMLReader.hpp>
+//#include <xercesc/sax2/XMLReaderFactory.hpp>
+//#include <xalanc/Include/PlatformDefinitions.hpp>
+//#include <xalanc/XalanTransformer/XalanTransformer.hpp>
 
 
 
 
-using namespace xercesc;
-XALAN_USING_XERCES(XMLPlatformUtils)
-XALAN_USING_XALAN(XalanTransformer)
+//using namespace xercesc;
+//XALAN_USING_XERCES(XMLPlatformUtils)
+//XALAN_USING_XALAN(XalanTransformer)
 
 
 
 int main(int argc, char *argv[])
 {
-    XMLPlatformUtils::Initialize();
-    XalanTransformer::initialize();
+    xmlSubstituteEntitiesDefault(1);
+    xmlLoadExtDtdDefaultValue = 1;
+    //XMLPlatformUtils::Initialize();
+    //XalanTransformer::initialize();
 
     QApplication app(argc, argv);
 

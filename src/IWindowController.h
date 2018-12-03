@@ -19,7 +19,7 @@
 #pragma once
 
 
-class IWindowController abstract
+class IWindowController
 {
 public:
     virtual void LoadXSLT()           = 0;
