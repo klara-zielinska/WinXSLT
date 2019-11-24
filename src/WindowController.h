@@ -21,9 +21,9 @@
 #include "IWindowController.h"
 #include "Window.h"
 
-
-
-
+/*!
+ * \brief This class is the application controller
+ */
 class WindowController : public IWindowController
 {
 public:

@@ -57,12 +57,12 @@ const QRegularExpression XmlPatterns::openPattern(
 const QString tagName =
         "((?!" + ws + ")(?!>).)+";
 
-const QString invTag =
+const QString invTagEnding =
         "[^>]+>?";
 
 const QRegularExpression XmlPatterns::inTagPattern(
         "(?'tagName'" + tagName + ")|" +
-        "(?'invTag'"  + invTag  + ")");
+        "(?'invTag'"  + invTagEnding  + ")");
 
 
 
@@ -80,13 +80,13 @@ const QRegularExpression XmlPatterns::inAttrsPattern(
         "(?'s'"        + s        + ")|"
         "(?'attrName'" + attrName + ")|"
         "(?'tagClose'" + tagClose + ")|"
-        "(?'invTag'"   + invTag   + ")");
+        "(?'invTag'"   + invTagEnding   + ")");
 
 const QRegularExpression XmlPatterns::inAttrPattern(
         "(?'s'"        + s        + ")|"
         "(?'eq'"         "="        ")|"
         "(?'tagClose'" + tagClose + ")|"
-        "(?'invTag'"   + invTag   + ")");
+        "(?'invTag'"   + invTagEnding   + ")");
 
 
 const QString value =
@@ -96,10 +96,10 @@ const QString value =
 const QRegularExpression XmlPatterns::inValPattern(
         "(?'s'"      + s      + ")|"
         "(?'value'"  + value  + ")|"
-        "(?'invTag'" + invTag + ")");
+        "(?'invTag'" + invTagEnding + ")");
 
 
-const QRegularExpression *const XmlPatterns::patterns[5] =
+const QRegularExpression *const XmlPatterns::Patterns[5] =
     { &openPattern,
       &inTagPattern,
       &inAttrsPattern,
@@ -107,11 +107,11 @@ const QRegularExpression *const XmlPatterns::patterns[5] =
       &inValPattern };
 
 
-const int XmlPatterns::capGroupsCount[5] =
+const int XmlPatterns::CapGroupsCount[5] =
     { 3, 2, 4, 4, 3 };
 
 
-const QString XmlPatterns::capGroups[5][4] =
+const QString XmlPatterns::CapGroups[5][4] =
 {
     {"comment", "tagOpen", "text"},
     {"tagName", "invTag"},

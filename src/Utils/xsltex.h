@@ -15,31 +15,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*! \file
+ *  \brief Wrappers for functions from libxml2, libxslt
+ */
 
-#ifndef XMLHIGHLIGHT_H
-#define XMLHIGHLIGHT_H
+#pragma once
 
-#include "XmlReader.h"
+#include <libxml/tree.h>
+#include <libxslt/xsltInternals.h>
+#include <exception>
 
 
+/*!
+ * \brief Exception thown by wrappers
+ */
+class XsltException : public std::exception
+{ };
 
 
-class XmlHighlight
-{
-public:
-    static QString InHtml(const QString& xml);
-
-private:
-    static const QString tagStyle;
-    static const QString attrNameStyle;
-    static const QString attrEqStyle;
-    static const QString attrValStyle;
-    static const QString textStyle;
-    static const QString commentStyle;
-    static const QString invTagStyle;
-    static const QString defaultStyle;
-
-    static const QString stylesByTokenType[XmlToken::TypeCount];
-};
-
-#endif // XMLHIGHLIGHT_H
+/*! \fn */
+xmlDocPtr         xmlParseDocEx(const xmlChar* cur);
+/*! \fn */
+xmlDocPtr         xmlParseFileEx(const char* filename);
+/*! \fn */
+xsltStylesheetPtr xsltParseStylesheetDocEx(xmlDocPtr doc);
+/*! \fn */
+xmlDocPtr         xsltApplyStylesheetEx(xsltStylesheetPtr style, xmlDocPtr doc,
+                                        const char ** params);
+/*! \fn */
+int               xsltSaveResultToFileEx(FILE* file, xmlDocPtr result,
+                                         xsltStylesheetPtr style);

@@ -17,7 +17,7 @@
  */
 
 #include "Window.h"
-#include "tools.h"
+#include "Utils/tools.h"
 #include "WindowController.h"
 #include <sstream>
 #include <QFileDialog>
@@ -28,7 +28,7 @@
 #include <libxslt/xsltInternals.h>
 #include <libxslt/transform.h>
 #include <libxslt/xsltutils.h>
-#include "xsltex.h"
+#include "Utils/xsltex.h"
 //#include <xalanc/XalanTransformer/XalanTransformer.hpp>
 
 

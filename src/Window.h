@@ -16,31 +16,54 @@
  * limitations under the License.
  */
 
-#ifndef WINDOW_H
-#define WINDOW_H
+#pragma once
 
-#include <QMainWindow>
 #include "IWindowController.h"
-
-
+#include <QMainWindow>
 
 
 namespace Ui {
 class Window;
 }
 
+/*!
+ * \brief This class provides the implementation of the main window
+ */
 class Window : public QMainWindow
 {
     Q_OBJECT
 
 public:
+    /*!
+     * \brief Constructs the window by calling the QMainWindow constructor
+     */
     explicit Window(QWidget *parent = 0);
     ~Window();
-    void    SetController(IWindowController* controller);
-    void    AddLog(const QString& entry);
-    void    SetXSLT(const QString& xslt);
+
+    /*!
+     * \brief Sets the application controller
+     */
+    void SetController(IWindowController* controller);
+    /*!
+     * \brief Adds an entry to the log list
+     */
+    void AddLog(const QString& entry);
+    /*!
+     * \brief Sets the content of the XSLT text area
+     * \param xslt An XSLT document
+     */
+    void SetXSLT(const QString& xslt);
+    /*!
+     * \brief Returns the cntent of the XSLT text area
+     */
     QString GetXSLT() const;
+    /*!
+     * \brief Sets the content of the source text field
+     */
     void SetSourcePath(const QString& path);
+    /*!
+     * \brief Returns the content of the source text field
+     */
     QString GetSourcePath() const;
 
 private slots:
@@ -55,5 +78,3 @@ private:
     Ui::Window *ui;
     IWindowController* controller;
 };
-
-#endif // WINDOW_H

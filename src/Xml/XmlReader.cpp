@@ -22,9 +22,9 @@
 
 
 
-XmlReader::XmlReader(const QString& xml)
+XmlReader::XmlReader(const QString& xmldoc)
 {
-    this->xml    = xml;
+    this->xml    = xmldoc;
     this->level  = XmlPatterns::Open;
 }
 
@@ -43,7 +43,7 @@ XmlPatterns::Level XmlReader::nextLevel(XmlPatterns::Level l, XmlToken::Type t)
         switch (t)
         {
         case XmlToken::TagName:    return XmlPatterns::InAttrs;
-        case XmlToken::InvalidTag: return XmlPatterns::Open;
+        case XmlToken::InvTagEnding: return XmlPatterns::Open;
         }
     case XmlPatterns::InAttrs:
         switch (t)
@@ -51,7 +51,7 @@ XmlPatterns::Level XmlReader::nextLevel(XmlPatterns::Level l, XmlToken::Type t)
         case XmlToken::InS:        return XmlPatterns::InAttrs;
         case XmlToken::AttrName:   return XmlPatterns::InAttr;
         case XmlToken::TagClose:   return XmlPatterns::Open;
-        case XmlToken::InvalidTag: return XmlPatterns::Open;
+        case XmlToken::InvTagEnding: return XmlPatterns::Open;
         }
     case XmlPatterns::InAttr:
         switch (t)
@@ -59,14 +59,14 @@ XmlPatterns::Level XmlReader::nextLevel(XmlPatterns::Level l, XmlToken::Type t)
         case XmlToken::InS:        return XmlPatterns::InAttr;
         case XmlToken::AttrEq:     return XmlPatterns::InVal;
         case XmlToken::TagClose:   return XmlPatterns::Open;
-        case XmlToken::InvalidTag: return XmlPatterns::Open;
+        case XmlToken::InvTagEnding: return XmlPatterns::Open;
         }
     case XmlPatterns::InVal:
         switch (t)
         {
         case XmlToken::InS:        return XmlPatterns::InVal;
         case XmlToken::AttrValue:  return XmlPatterns::InAttrs;
-        case XmlToken::InvalidTag: return XmlPatterns::Open;
+        case XmlToken::InvTagEnding: return XmlPatterns::Open;
         }
     }
 
@@ -90,7 +90,7 @@ XmlToken::Type XmlReader::capGroupToTokenType(XmlPatterns::Level l,
         switch (capGroup)
         {
         case 0: return XmlToken::TagName;
-        case 1: return XmlToken::InvalidTag;
+        case 1: return XmlToken::InvTagEnding;
         }
     case XmlPatterns::InAttrs:
         switch (capGroup)
@@ -98,7 +98,7 @@ XmlToken::Type XmlReader::capGroupToTokenType(XmlPatterns::Level l,
         case 0: return XmlToken::InS;
         case 1: return XmlToken::AttrName;
         case 2: return XmlToken::TagClose;
-        case 3: return XmlToken::InvalidTag;
+        case 3: return XmlToken::InvTagEnding;
         }
     case XmlPatterns::InAttr:
         switch (capGroup)
@@ -106,14 +106,14 @@ XmlToken::Type XmlReader::capGroupToTokenType(XmlPatterns::Level l,
         case 0: return XmlToken::InS;
         case 1: return XmlToken::AttrEq;
         case 2: return XmlToken::TagClose;
-        case 3: return XmlToken::InvalidTag;
+        case 3: return XmlToken::InvTagEnding;
         }
     case XmlPatterns::InVal:
         switch (capGroup)
         {
         case 0: return XmlToken::InS;
         case 1: return XmlToken::AttrValue;
-        case 2: return XmlToken::InvalidTag;
+        case 2: return XmlToken::InvTagEnding;
         }
     }
 
@@ -124,9 +124,9 @@ XmlToken::Type XmlReader::capGroupToTokenType(XmlPatterns::Level l,
 XmlToken XmlReader::matchToToken(XmlPatterns::Level l,
                                  const QRegularExpressionMatch& match)
 {
-    for (int i = 0; i < XmlPatterns::capGroupsCount[l]; i++)
+    for (int i = 0; i < XmlPatterns::CapGroupsCount[l]; i++)
     {
-        QString tokenText = match.captured(XmlPatterns::capGroups[l][i]);
+        QString tokenText = match.captured(XmlPatterns::CapGroups[l][i]);
         if (!tokenText.isNull())
             return XmlToken { capGroupToTokenType(l, i),
                               tokenText };
@@ -143,7 +143,7 @@ XmlToken XmlReader::NextToken()
     }
     else
     {
-        const QRegularExpression* regex = XmlPatterns::patterns[level];
+        const QRegularExpression* regex = XmlPatterns::Patterns[level];
         const QRegularExpressionMatch& match =
                 regex->match(xml, 0,
                              QRegularExpression::NormalMatch,

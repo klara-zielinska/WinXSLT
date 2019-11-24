@@ -16,32 +16,18 @@
  * limitations under the License.
  */
 
-#ifndef XMLREADER_H
-#define XMLREADER_H
+#pragma once
 
-#include <QString>
 #include "XmlPatterns.h"
+#include "XmlToken.h"
+#include <QString>
 
 
-
-
-struct XmlToken
-{
-    enum Type {TagOpen, TagClose, TagName, AttrName, AttrEq, AttrValue, InS,
-               Text, Comment, End, InvalidTag};
-    static const int TypeCount = 11;
-
-    Type type;
-    QString text;
-};
-
-
+/*!
+ * \brief This class provides an XML lexer
+ */
 class XmlReader
 {
-public:
-    XmlReader(const QString& xml);
-    XmlToken NextToken();
-
 private:
     static XmlPatterns::Level nextLevel(
             XmlPatterns::Level l, XmlToken::Type t);
@@ -54,6 +40,16 @@ private:
 
     QString            xml;
     XmlPatterns::Level level;
-};
 
-#endif // XMLREADER_H
+public:
+    /*!
+     * \brief Constructs a lexer
+     * \param xmldoc An XML document
+     */
+    XmlReader(const QString& xmldoc);
+
+    /*!
+     * \brief Reads the next unread token
+     */
+    XmlToken NextToken();
+};

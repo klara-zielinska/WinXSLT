@@ -3,8 +3,7 @@
   == Version 2.0, in this case for the WinXSLT application.            ==
   =======================================================================
 
-  This software uses the Apache Software Foundation Xalan-C and 
-  Xerces-C projects.
+  This software uses the libxml2 and libxslt projects.
 
   Additional copyright submissions and contributions:
 --------------------------------------------------------------------------

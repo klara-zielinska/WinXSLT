@@ -15,59 +15,41 @@ TEMPLATE = app
 
 
 SOURCES += src/main.cpp \
-    src/tools.cpp \
+    src/Utils/tools.cpp \
     src/WindowController.cpp \
     src/Window.cpp \
-    src/XmlReader.cpp \
-    src/XmlPatterns.cpp \
-    src/XmlHighlight.cpp \
-    src/xsltex.cpp
+    src/Xml/XmlReader.cpp \
+    src/Xml/XmlPatterns.cpp \
+    src/Xml/XmlHighlight.cpp \
+    src/Utils/xsltex.cpp
 
 HEADERS  += \
-    src/tools.h \
+    src/Xml/XmlToken.h \
+    src/Utils/tools.h \
     src/WindowController.h \
     src/IWindowController.h \
     src/Window.h \
-    src/XmlReader.h \
-    src/XmlPatterns.h \
-    src/XmlHighlight.h \
-    src/xsltex.h
+    src/Xml/XmlReader.h \
+    src/Xml/XmlPatterns.h \
+    src/Xml/XmlHighlight.h \
+    src/Utils/xsltex.h
 
 FORMS    += \
     src/Window.ui
 
-INCLUDEPATH += /usr/include/libxml2
-#    $$(XALANCROOT)/c/src \
-#    $$(XERCESCROOT)/src
 
-debug {
-//INCLUDEPATH += $$(XALANCROOT)/c/Build/Win64/VC10/Debug/Nls/Include
-}
+XMLINCLUDEPATH = C:/Qt/Tools/mingw730_64/opt/include
+XMLLIBPATH     = C:/Qt/Tools/mingw730_64/opt/lib
 
-release {
-//INCLUDEPATH += $$(XALANCROOT)/c/Build/Win64/VC10/Release/Nls/Include
-}
+INCLUDEPATH += $$XMLINCLUDEPATH \
+    $$XMLINCLUDEPATH/libxml2
 
 LIBS += -lxml2 \
-    -lxslt
-#-L$$(XERCESCROOT)/lib \
-#    -L$$(XALANCLIB)
+    -lxslt \
+    -L$$XMLLIBPATH
 
-#debug {
-#LIBS += -L$$(XERCESCROOT)/Build/Win64/VC10/Debug \
-#    -L$$(XALANCROOT)/c/Build/Win64/VC10/Debug \
-#    -lxerces-c_3D \
-#    -lXalan-C_1D
-#}
-
-#release {
-#LIBS += -L$$(XERCESCROOT)/Build/Win64/VC10/Release \
-#    -L$$(XALANCROOT)/c/Build/Win64/VC10/Release \
-#    -lxerces-c_3 \
-#    -lXalan-C_1
-#}
-
-DISTFILES +=
+DISTFILES += \
+    Doxyfile
 
 RESOURCES += \
     resources.qrc

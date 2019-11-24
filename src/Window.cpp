@@ -18,7 +18,7 @@
 
 #include "Window.h"
 #include "ui_Window.h"
-#include "XmlHighlight.h"
+#include "Xml/XmlHighlight.h"
 
 
 

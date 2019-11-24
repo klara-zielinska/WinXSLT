@@ -18,27 +18,31 @@
 
 #pragma once
 
-#include <QString>
-#include <QStringList>
-#include <QFileInfoList>
+#include "XmlReader.h"
 
 
+/*!
+ * \brief This class provides an XML highlighting
+ */
+class XmlHighlight
+{
+public:
+    /*!
+     * \brief Highlights XML syntax in HTML
+     * \param xml An XML string
+     * \return xml wrapped in HTML
+     */
+    static QString InHtml(const QString& xml);
 
+private:
+    static const QString tagStyle;
+    static const QString attrNameStyle;
+    static const QString attrEqStyle;
+    static const QString attrValStyle;
+    static const QString textStyle;
+    static const QString commentStyle;
+    static const QString invTagStyle;
+    static const QString defaultStyle;
 
-/// <summary>
-/// Returns the size of an array
-/// </summary>
-
-template<class T, size_t N>
-constexpr size_t size(T (&)[N]) { return N; }
-
-
-/// <summary>
-/// Finds all files specified by a path pattern.
-/// </summary>
-///
-/// <param name=pathPattern>
-/// A path that can contain wildcards ? and *.
-/// </param>
-
-QFileInfoList GetFilesByPattern(const QString& path);
+    static const QString stylesByTokenType[XmlToken::TypesCount];
+};

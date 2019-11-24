@@ -34,7 +34,7 @@ const QString XmlHighlight::invTagStyle   = "color: Red; "
 const QString XmlHighlight::defaultStyle  = "";
 
 
-const QString XmlHighlight::stylesByTokenType[XmlToken::TypeCount] =
+const QString XmlHighlight::stylesByTokenType[XmlToken::TypesCount] =
 {
     tagStyle,
     tagStyle,
