@@ -19,8 +19,6 @@
 #include "XmlHighlight.h"
 
 
-
-
 const QString XmlHighlight::tagStyle      = "color: Blue;";
 const QString XmlHighlight::attrNameStyle = "color: Red;";
 const QString XmlHighlight::attrEqStyle   = "color: Black;";

@@ -15,27 +15,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*!
- * \file
- * \brief General purpose functions
- */
 
 #pragma once
 
-#include <QString>
-#include <QStringList>
-#include <QFileInfoList>
-
 
 /*!
- * \brief Returns the size of an array
+ * \brief This class is an interface for the application controller
  */
-template<class T, size_t N>
-constexpr size_t size(T (&)[N]) { return N; }
-
-
-/*!
- * \brief Finds all files specified by a path pattern
- * \param pathPattern A path that can contain wildcards ? and *.
- */
-QFileInfoList GetFilesByPattern(const QString& path);
+class IWindowController
+{
+public:
+    /*!
+     * \brief Loads XSLT from a file into the application
+     */
+    virtual void LoadXSLT()           = 0;
+    /*!
+     * \brief Saves XSLT from the application to a file
+     */
+    virtual void SaveXSLT()           = 0;
+    /*!
+     * \brief Asks a user for the location of a file to translate
+     */
+    virtual void ChooseSourceFile()   = 0;
+    /*!
+     * \brief Asks a user for the location of a folder that contains files
+     * to translate
+     */
+    virtual void ChooseSourceFolder() = 0;
+    /*!
+     * \brief Runs the procedure that translates chosen XML files using the
+     * present XSLT scheme
+     */
+    virtual void Transform()          = 0;
+};

@@ -19,8 +19,6 @@
 #include "XmlPatterns.h"
 
 
-
-
 const QString ch = QString::fromUtf8(
         u8"\x09|\x0A|\x0D|"
         u8"[\x20-\uD7FF]|"

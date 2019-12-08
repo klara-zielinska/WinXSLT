@@ -21,8 +21,6 @@
 #include "Xml/XmlHighlight.h"
 
 
-
-
 Window::Window(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Window)

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <cd>
+    <title>Black angel</title>
+    <artist>Savage Rose</artist>
+    <country>EU</country>
+    <company>Mega</company>
+    <price>10.90</price>
+    <year>1995</year>
+  </cd>
+  <cd>
+    <title>1999 Grammy Nominees</title>
+    <artist>Many</artist>
+    <country>USA</country>
+    <company>Grammy</company>
+    <price>10.20</price>
+    <year>1999</year>
+  </cd>
+  <cd>
+    <title>For the good times</title>
+    <artist>Kenny Rogers</artist>
+    <country>UK</country>
+    <company>Mucik Master</company>
+    <price>8.70</price>
+    <year>1995</year>
+  </cd>
+  <cd>
+    <title>Big Willie style</title>
+    <artist>Will Smith</artist>
+    <country>USA</country>
+    <company>Columbia</company>
+    <price>9.90</price>
+    <year>1997</year>
+  </cd>
+  <cd>
+    <title>Private Dancer</title>
+    <artist>Tina Turner</artist>
+    <country>UK</country>
+    <company>Capitol</company>
+    <price>8.90</price>
+    <year>1983</year>
+  </cd>
+  <cd>
+    <title>Midt om natten</title>
+    <artist>Kim Larsen</artist>
+    <country>EU</country>
+    <company>Medley</company>
+    <price>7.80</price>
+    <year>1983</year>
+  </cd>
+  <cd>
+    <title>Pavarotti Gala Concert</title>
+    <artist>Luciano Pavarotti</artist>
+    <country>UK</country>
+    <company>DECCA</company>
+    <price>9.90</price>
+    <year>1991</year>
+  </cd>
+</catalog>
+

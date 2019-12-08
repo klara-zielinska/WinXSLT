@@ -17,28 +17,21 @@
  */
 
 #include "Window.h"
-#include "Utils/tools.h"
 #include "WindowController.h"
-#include <sstream>
-#include <QFileDialog>
-#include <QString>
-#include <QTextStream>
-#include <QXmlStreamReader>
+#include "Utils/tools.h"
+#include "Utils/xsltutils.h"
 #include <libxslt/xslt.h>
 #include <libxslt/xsltInternals.h>
 #include <libxslt/transform.h>
 #include <libxslt/xsltutils.h>
-#include "Utils/xsltex.h"
-//#include <xalanc/XalanTransformer/XalanTransformer.hpp>
+#include <QFileDialog>
+#include <QString>
+#include <QTextStream>
+#include <QXmlStreamReader>
+#include <sstream>
 
 
-
-
-//XALAN_USING_XALAN(XalanTransformer)
-//XALAN_USING_XALAN(XSLTInputSource)
-//XALAN_USING_XALAN(XSLTResultTarget)
 using namespace std;
-
 
 
 void WindowController::LoadXSLT()
@@ -87,7 +80,7 @@ void WindowController::Transform()
     try {
 
     QString       sourcePath  = window->GetSourcePath();
-    QFileInfoList sourceFiles = GetFilesByPattern(sourcePath);
+    QFileInfoList sourceFiles = getFilesByPattern(sourcePath);
 
     string    xsltStr = window->GetXSLT().toStdString();
     xmlDocPtr xsltDoc = xmlParseDocEx(reinterpret_cast<const xmlChar*>(

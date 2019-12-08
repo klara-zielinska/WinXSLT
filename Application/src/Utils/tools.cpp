@@ -21,6 +21,7 @@
 #include <QTextStream>
 #include <sstream>
 
+
 using namespace std;
 
 
@@ -86,7 +87,7 @@ void writeSStreamToFile(
     file.close();
 }
 
-QFileInfoList GetFilesByPattern(const QString& path)
+QFileInfoList getFilesByPattern(const QString& path)
 {
     QString absPath =
             QDir::fromNativeSeparators(

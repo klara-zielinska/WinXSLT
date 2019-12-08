@@ -20,8 +20,6 @@
 #include <QRegularExpression>
 
 
-
-
 XmlReader::XmlReader(const QString& xmldoc)
 {
     this->xml    = xmldoc;
