@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/NoXmlDir/ABC/a.txt</file>
+        <file>resources/NoXmlDir/ABC/b.txt</file>
+        <file>resources/NoXmlDir/ABC/c.txt</file>
+        <file>resources/NoXmlDir/bar/barfoo/1.txt</file>
+        <file>resources/NoXmlDir/bar/barfoo/2.txt</file>
+        <file>resources/NoXmlDir/bar/barfoo/foobar.txt</file>
+        <file>resources/NoXmlDir/bar/foobar/abc.txt</file>
+        <file>resources/NoXmlDir/bar/foobar/foobar.txt</file>
+        <file>resources/NoXmlDir/bar/1.txt</file>
+        <file>resources/NoXmlDir/bar/2.txt</file>
+        <file>resources/NoXmlDir/D E F/_D.txt</file>
+        <file>resources/NoXmlDir/D E F/_E F.txt</file>
+        <file>resources/NoXmlDir/foo/foobar/foobar.txt</file>
+        <file>resources/XmlDir/dir1/cds.xml</file>
+        <file>resources/XmlDir/dir1/cds2.xml</file>
+        <file>resources/XmlDir/dir1/cds2html.xslt</file>
+        <file>resources/XmlDir/dir1/foobar.txt</file>
+        <file>resources/XmlDir/dir2/cds3.xml</file>
+        <file>resources/XmlDir/bad.xml</file>
+        <file>resources/XmlDir/goodł.xml</file>
+        <file>resources/mmc3a.txt</file>
+        <file>resources/mmc3b.txt</file>
+        <file>resources/mmc3c.txt</file>
+    </qresource>
+</RCC>

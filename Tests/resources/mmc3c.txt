@@ -1,0 +1,10 @@
+Suppl. Table 4. Mouse circRNA summary
+chr,start,end,strand: coordinates in mm10 annotation
+Annotation: NTO: intergenic; CTO: complete transcript overlap; AS: antisense; ITO: incomplete transcript overlap; ncRNA: non-coding RNA; INTRONIC: intronic; CDS,5UTR,3UTR: overlaps coding sequence, 5'UTR or 3'UTR; ANNOTATED: splice sites are annotated; ALT_DONOR, ALT_ACCEPTOR: not annotated splice donor or acceptor site
+nExons: number of exons
+length: predicted length
+rawCounts: raw counts of backsplice-spanning reads in all samples in the same order as the preceding column names
+allSHAM,allTAC: detected in all SHAM_mock or all TAC_mock with >=3 reads
+rnoCircIndex, hsaCircIndex: index of rat,human homolog, if found
+Normalized sample counts are given as backsplice-spanning reads per million uniquely aligned unspliced reads (RPM)
+
