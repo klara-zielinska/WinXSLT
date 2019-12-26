@@ -6,6 +6,7 @@ class tst_xsltutils : public QObject
 {
     Q_OBJECT
 
+    const char* tmpFileName = "tmp";
     QDir xmlDir;
 
 public:
@@ -25,7 +26,10 @@ private slots:
     void testXmlParseDocEx2();
     void testXmlParseFileEx1();
     void testXmlParseFileEx2();
-    void testXsltParseStylesheetDocEx();
-    void testXsltApplyStylesheetEx();
-    void testXsltSaveResultToFileEx();
+    void testXsltParseStylesheetDocEx1();
+    void testXsltParseStylesheetDocEx2();
+    void testXsltApplyStylesheetEx1();
+    void testXsltApplyStylesheetEx2(); // TO THINK: an error test
+    void testXsltSaveResultToFileEx1();
+    void testXsltSaveResultToFileEx2();
 };

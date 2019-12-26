@@ -13,11 +13,14 @@
         <file>resources/NoXmlDir/D E F/_D.txt</file>
         <file>resources/NoXmlDir/D E F/_E F.txt</file>
         <file>resources/NoXmlDir/foo/foobar/foobar.txt</file>
-        <file>resources/XmlDir/dir1/cds.xml</file>
-        <file>resources/XmlDir/dir1/cds2.xml</file>
-        <file>resources/XmlDir/dir1/cds2html.xslt</file>
-        <file>resources/XmlDir/dir1/foobar.txt</file>
-        <file>resources/XmlDir/dir2/cds3.xml</file>
+        <file>resources/XmlDir/cds/cds.html</file>
+        <file>resources/XmlDir/cds/cds.xml</file>
+        <file>resources/XmlDir/cds/cds2.xml</file>
+        <file>resources/XmlDir/cds/cds2html.xslt</file>
+        <file>resources/XmlDir/cds/cds3.xml</file>
+        <file>resources/XmlDir/cds/foobar.txt</file>
+        <file>resources/XmlDir/dir/cds2html_bad.xslt</file>
+        <file>resources/XmlDir/dir/cds3.xml</file>
         <file>resources/XmlDir/bad.xml</file>
         <file>resources/XmlDir/goodł.xml</file>
         <file>resources/mmc3a.txt</file>

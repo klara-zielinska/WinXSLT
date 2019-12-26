@@ -24,8 +24,15 @@ xsltStylesheetPtr xsltParseStylesheetDocEx(xmlDocPtr doc)
 {
     auto res = xsltParseStylesheetDoc(doc);
 
-    if (res == nullptr) throw XmlException();
-    else                return res;
+    if (res == nullptr)
+        throw XmlException();
+    else if (res->errors != 0)
+    {
+        xsltFreeStylesheet(res);
+        throw XmlException();
+    }
+    else
+        return res;
 }
 
 xmlDocPtr xsltApplyStylesheetEx(xsltStylesheetPtr style, xmlDocPtr doc,
