@@ -21,7 +21,7 @@
 
 const QString ch = QString::fromUtf8(
         u8"\x09|\x0A|\x0D|"
-        u8"[\x20-\uD7FF]|"
+        u8"[\u0020-\uD7FF]|"
         u8"[\uE000-\uFFFD]|"
         u8"[\U00010000-\U0010FFFF]");
 
@@ -29,18 +29,18 @@ const QString ws = QString::fromUtf8(
         u8"\x20|\x09|\x0D|\x0A");
 
 const QString s =
-        "(" + ws + ")+";
+        "(?:" + ws + ")+";
 
 const QString comment =
         "<!--"
-        "("
-            "(?!-)("  + ch + ")|"
-            "-(?!-)(" + ch + ")"
+        "(?:"
+            "(?!-)(?:"  + ch + ")|"
+            "-(?!-)(?:" + ch + ")"
         ")*"
         "-->";
 
 const QString tagOpen =
-        "<[\\?/]?";
+        "<[?/!]?";
 
 const QString text =
         "[^<]+";
@@ -51,32 +51,45 @@ const QRegularExpression XmlPatterns::openPattern(
         "(?'text'"    + text    + ")");
 
 
+const QString tagNameStartCh = QString::fromUtf8(
+        u8"[:_A-Za-z]|"
+        u8"[\xC0-\xD6]|"
+        u8"[\xD8-\xF6]|"
+        u8"[\u00F8-\u02FF]|"
+        u8"[\u0370-\u037D]|"
+        u8"[\u037F-\u1FFF]|"
+        u8"[\u200C-\u200D]|"
+        u8"[\u2070-\u218F]|"
+        u8"[\u2C00-\u2FEF]|"
+        u8"[\u3001-\uD7FF]|"
+        u8"[\uF900-\uFDCF]|"
+        u8"[\uFDF0-\uFFFD]|"
+        u8"[\U00010000-\U000EFFFF]");
 
-const QString tagName =
-        "((?!" + ws + ")(?!>).)+";
+const QString tagNameCh =
+        tagNameStartCh + "|" + QString::fromUtf8(
+        u8"[-\\.0-9]|"
+        u8"\xB7|"
+        u8"[\u0300-\u036F]|"
+        u8"[\u203F-\u2040]");
+
+const QString name =
+        "(?:" + tagNameStartCh + ")(?:" + tagNameCh + ")*";
 
 const QString invTagEnding =
         "[^>]+>?";
 
 const QRegularExpression XmlPatterns::inTagPattern(
-        "(?'tagName'" + tagName + ")|" +
+        "(?'tagName'" + name + ")|"
         "(?'invTag'"  + invTagEnding  + ")");
 
 
-
-const QString attrName =
-        "("
-            "(?!" + ws + ")"
-            "(?![>=\\?/])"
-            "."
-        ")+";
-
 const QString tagClose =
-        "[\\?/]?>";
+        "[?/]?>";
 
 const QRegularExpression XmlPatterns::inAttrsPattern(
         "(?'s'"        + s        + ")|"
-        "(?'attrName'" + attrName + ")|"
+        "(?'attrName'" + name     + ")|"
         "(?'tagClose'" + tagClose + ")|"
         "(?'invTag'"   + invTagEnding   + ")");
 
@@ -86,10 +99,20 @@ const QRegularExpression XmlPatterns::inAttrPattern(
         "(?'tagClose'" + tagClose + ")|"
         "(?'invTag'"   + invTagEnding   + ")");
 
+const QString entityRef =
+        "&" + name + ";";
+
+const QString charRef =
+        "&#[0-9]+;|"
+        "&#x[0-9a-fA-F]+;";
+
+const QString reference =
+        entityRef + "|" +
+        charRef;
 
 const QString value =
-        "(\"[^\"]*\")|"
-        "('[^\']*')";
+        "\"(?:[^<&\"]|" + reference + ")*\"|"
+        "'(?:[^<&\']|'" + reference + ")*'";
 
 const QRegularExpression XmlPatterns::inValPattern(
         "(?'s'"      + s      + ")|"

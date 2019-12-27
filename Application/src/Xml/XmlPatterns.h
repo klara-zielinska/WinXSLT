@@ -31,7 +31,7 @@
 class XmlPatterns
 {
 private:
-    static const int maxCapGroupsInLevel = 4;
+    static constexpr int maxCapGroupsInLevel = 4;
 
 public:
     /*!

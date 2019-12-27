@@ -46,7 +46,7 @@ public:
      * \brief Constructs a lexer
      * \param xmldoc An XML document
      */
-    XmlReader(const QString& xmldoc);
+    XmlReader(const QString& xmlDoc);
 
     /*!
      * \brief Reads the next unread token

@@ -8,12 +8,16 @@ TEMPLATE = app
 HEADERS += \
     Utils/tst_tools.h \
     Utils/tst_xsltutils.h \
+    Xml/tst_XmlPatterns.h \
+    Xml/tst_XmlReader.h \
     testtools.h \
     tst_testtools.h
 
 SOURCES += \
     Utils/tst_tools.cpp \
     Utils/tst_xsltutils.cpp \
+    Xml/tst_XmlPatterns.cpp \
+    Xml/tst_XmlReader.cpp \
     main.cpp \
     testtools.cpp \
     tst_testtools.cpp
@@ -24,10 +28,14 @@ INCLUDEPATH += ../Application/src \
 
 CONFIG(debug, debug|release){
     LIBS += $$shadowed($$PWD)/../Application/debug/tools.o \
-            $$shadowed($$PWD)/../Application/debug/xsltutils.o }
+            $$shadowed($$PWD)/../Application/debug/xsltutils.o \
+            $$shadowed($$PWD)/../Application/debug/XmlPatterns.o \
+            $$shadowed($$PWD)/../Application/debug/XmlReader.o }
 CONFIG(release, debug|release){
     LIBS += $$shadowed($$PWD)/../Application/release/tools.o \
-            $$shadowed($$PWD)/../Application/release/xsltutils.o }
+            $$shadowed($$PWD)/../Application/release/xsltutils.o \
+            $$shadowed($$PWD)/../Application/release/XmlPatterns.o \
+            $$shadowed($$PWD)/../Application/debug/XmlReader.o }
 
 LIBS += \
     -L$$XMLLIBPATH \

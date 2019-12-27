@@ -13,6 +13,7 @@
         <file>resources/NoXmlDir/D E F/_D.txt</file>
         <file>resources/NoXmlDir/D E F/_E F.txt</file>
         <file>resources/NoXmlDir/foo/foobar/foobar.txt</file>
+        <file>resources/XmlDir/cds/book.xml</file>
         <file>resources/XmlDir/cds/cds.html</file>
         <file>resources/XmlDir/cds/cds.xml</file>
         <file>resources/XmlDir/cds/cds2.xml</file>
