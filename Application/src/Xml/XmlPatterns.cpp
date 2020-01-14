@@ -114,10 +114,13 @@ const QString value =
         "\"(?:[^<&\"]|" + reference + ")*\"|"
         "'(?:[^<&\']|'" + reference + ")*'";
 
+const QString invVal =
+        "[^>]*>?";
+
 const QRegularExpression XmlPatterns::inValPattern(
         "(?'s'"      + s      + ")|"
         "(?'value'"  + value  + ")|"
-        "(?'invTag'" + invTagEnding + ")");
+        "(?'invVal'" + invVal + ")");
 
 
 const QRegularExpression *const XmlPatterns::Patterns[5] =
@@ -138,5 +141,5 @@ const QString XmlPatterns::CapGroups[5][4] =
     {"tagName", "invTag"},
     {"s", "attrName", "tagClose", "invTag"},
     {"s", "eq", "tagClose", "invTag"},
-    {"s", "value", "invTag"}
+    {"s", "value", "invVal"}
 };

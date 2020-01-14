@@ -15,9 +15,6 @@ tst_xsltutils::~tst_xsltutils()
 
 void tst_xsltutils::initTestCase()
 {
-    xmlSubstituteEntitiesDefault(1);
-    xmlLoadExtDtdDefaultValue = 1;
-
     xmlDir = QDir("XmlDir");
     copyDir(QDir(":/resources/XmlDir"), xmlDir);
 }

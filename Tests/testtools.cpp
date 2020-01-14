@@ -1,4 +1,5 @@
 #include "testtools.h"
+#include "Utils/xsltutils.h"
 #include <archive.h>
 #include <archive_entry.h>
 #include <QFile>
@@ -169,4 +170,61 @@ void copyDir(QDir source, QDir target)
 
     foreach (QString name, source.entryList(QDir::Files))
         QFile::copy(source.filePath(name), target.filePath(name));
+}
+
+bool xmlSimpleNodesEq(xmlNodePtr node1, xmlNodePtr node2)
+{
+    if (node1 == node2) return true;
+    if (node1 == nullptr || node2 == nullptr) return false;
+    if (node1->type != node2->type) return false;
+
+    if (node1->type == XML_TEXT_NODE)
+        return
+        QString::fromUtf8(XmlCString::of(xmlNodeGetContent(node1))).trimmed() ==
+        QString::fromUtf8(XmlCString::of(xmlNodeGetContent(node2))).trimmed();
+
+    if (node1->type == XML_ELEMENT_NODE)
+    {
+        if (QString::fromUtf8(XmlCString::of(node1->name)) !=
+            QString::fromUtf8(XmlCString::of(node2->name)))
+            return false;
+
+        xmlAttr* attr1 = node1->properties;
+        xmlAttr* attr2 = node2->properties;
+
+        while (attr1 != nullptr && attr2 != nullptr)
+        {
+            xmlChar* value1 =
+                    xmlNodeListGetString(node1->doc, attr1->children, 1);
+            xmlChar* value2 =
+                    xmlNodeListGetString(node2->doc, attr2->children, 1);
+            bool valsEqual = QString::fromUtf8(XmlCString::of(value1)) ==
+                             QString::fromUtf8(XmlCString::of(value2));
+            xmlFree(value1);
+            xmlFree(value2);
+
+            if (!valsEqual ||
+                QString::fromUtf8(XmlCString::of(attr1->name)) !=
+                QString::fromUtf8(XmlCString::of(attr2->name)))
+                return false;
+
+            attr1 = attr1->next;
+            attr2 = attr2->next;
+        }
+
+        if (attr1 || attr2)
+            return false;
+    }
+
+    node1 = node1->children;
+    node2 = node2->children;
+    while (node1 != nullptr && node2 != nullptr)
+        if (!xmlSimpleNodesEq(node1, node2))
+            return false;
+        else
+        {
+            node1 = node1->next;
+            node2 = node2->next;
+        }
+    return node1 == nullptr && node2 == nullptr;
 }

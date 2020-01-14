@@ -321,7 +321,7 @@ void tst_XmlPatterns::testInVal4()
                          QRegularExpression::AnchoredMatchOption);
     QVERIFY(match.captured("s").isNull());
     QVERIFY(match.captured("value").isNull());
-    QVERIFY(match.captured("invTag") == "abc' >");
+    QVERIFY(match.captured("invVal") == "abc' >");
 }
 
 void tst_XmlPatterns::testInVal5()
@@ -347,3 +347,16 @@ void tst_XmlPatterns::testInVal6()
     QVERIFY(match.captured("value") == "'abc&#xA;&#xd;'");
     QVERIFY(match.captured("invTag").isNull());
 }
+
+void tst_XmlPatterns::testInVal7()
+{
+    const QRegularExpression* regex = XmlPatterns::Patterns[4];
+    const QRegularExpressionMatch& match =
+            regex->match(">lo", 0,
+                         QRegularExpression::NormalMatch,
+                         QRegularExpression::AnchoredMatchOption);
+    QVERIFY(match.captured("s").isNull());
+    QVERIFY(match.captured("value").isNull());
+    QVERIFY(match.captured("invVal") == ">");
+}
+

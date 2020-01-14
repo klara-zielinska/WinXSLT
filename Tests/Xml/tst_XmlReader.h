@@ -7,7 +7,8 @@ class tst_XmlReader : public QObject
 {
     Q_OBJECT
 
-    XmlReader* xmlReader;
+    XmlReader* xmlReader1;
+    XmlReader* xmlReader2;
 
 public:
     tst_XmlReader();
@@ -18,4 +19,5 @@ private slots:
     void cleanupTestCase();
 
     void testNextToken1();
+    void testNextToken2();
 };

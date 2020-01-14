@@ -14,12 +14,29 @@
         <file>resources/NoXmlDir/D E F/_E F.txt</file>
         <file>resources/NoXmlDir/foo/foobar/foobar.txt</file>
         <file>resources/XmlDir/cds/book.xml</file>
+        <file>resources/XmlDir/cds/book_highlight.html</file>
         <file>resources/XmlDir/cds/cds.html</file>
         <file>resources/XmlDir/cds/cds.xml</file>
         <file>resources/XmlDir/cds/cds2.xml</file>
         <file>resources/XmlDir/cds/cds2html.xslt</file>
+        <file>resources/XmlDir/cds/cds2html_highlight.html</file>
         <file>resources/XmlDir/cds/cds3.xml</file>
         <file>resources/XmlDir/cds/foobar.txt</file>
+        <file>resources/XmlDir/cmp/ex1a.xml</file>
+        <file>resources/XmlDir/cmp/ex1b.xml</file>
+        <file>resources/XmlDir/cmp/ex1c.xml</file>
+        <file>resources/XmlDir/cmp/ex2a.xml</file>
+        <file>resources/XmlDir/cmp/ex2b.xml</file>
+        <file>resources/XmlDir/cmp/ex2c.xml</file>
+        <file>resources/XmlDir/cmp/ex2d.xml</file>
+        <file>resources/XmlDir/cmp/ex2e.xml</file>
+        <file>resources/XmlDir/cmp/ex2f.xml</file>
+        <file>resources/XmlDir/cmp/ex3a.xml</file>
+        <file>resources/XmlDir/cmp/ex3b.xml</file>
+        <file>resources/XmlDir/cmp/ex3c.xml</file>
+        <file>resources/XmlDir/cmp/ex3d.xml</file>
+        <file>resources/XmlDir/cmp/ex3e.xml</file>
+        <file>resources/XmlDir/dir/book_bad.xml</file>
         <file>resources/XmlDir/dir/cds2html_bad.xslt</file>
         <file>resources/XmlDir/dir/cds3.xml</file>
         <file>resources/XmlDir/bad.xml</file>

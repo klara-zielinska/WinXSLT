@@ -20,14 +20,21 @@
 #include "WindowController.h"
 #include "Utils/tools.h"
 #include <libxml/DOCBparser.h>
+#include <libxslt/xsltutils.h>
 #include <QApplication>
 #include <QRegularExpression>
 
+
+void silentErrorHandler(void*, const char*, ...)
+{
+}
 
 int main(int argc, char *argv[])
 {
     xmlSubstituteEntitiesDefault(1);
     xmlLoadExtDtdDefaultValue = 1;
+    xmlSetGenericErrorFunc(nullptr, &silentErrorHandler);
+    xsltSetGenericErrorFunc(nullptr, &silentErrorHandler);
 
     QApplication app(argc, argv);
 

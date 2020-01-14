@@ -46,4 +46,5 @@ private slots:
     void testInVal4();
     void testInVal5();
     void testInVal6();
+    void testInVal7();
 };
