@@ -128,15 +128,18 @@ void tst_xsltutils::testXmlParseFileEx1()
     node = xmlFirstElementChild(node);
     QVERIFY(QString(XmlCString::of(node->name)) == "title");
     content = xmlNodeGetContent(node);
-    QVERIFY(QString::fromUtf8(XmlCString::of(content)) == L"Empireł Burlesquę");
+    QVERIFY(QString::fromUtf8(XmlCString::of(content)) ==
+            QString::fromWCharArray(L"Empireł Burlesquę"));
     node = xmlNextElementSibling(node);
     QVERIFY(QString(XmlCString::of(node->name)) == "artist");
     content = xmlNodeGetContent(node);
-    QVERIFY(QString::fromUtf8(XmlCString::of(content)) == L"Bób Dylań");
+    QVERIFY(QString::fromUtf8(XmlCString::of(content)) ==
+            QString::fromWCharArray(L"Bób Dylań"));
     node = xmlNextElementSibling(node);
     QVERIFY(QString(XmlCString::of(node->name)) == "country");
     content = xmlNodeGetContent(node);
-    QVERIFY(QString::fromUtf8(XmlCString::of(content)) == L"UŚĄ");
+    QVERIFY(QString::fromUtf8(XmlCString::of(content)) ==
+            QString::fromWCharArray(L"UŚĄ"));
 
     xmlFreeDoc(xmlDoc);
 }

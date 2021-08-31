@@ -58,16 +58,18 @@ void tst_XmlReader::testNextToken1()
             (XmlToken{ .type = XmlToken::AttrValue, .text = "\"UTF-8\"" }));
     QVERIFY(xmlReader1->NextToken() ==
             (XmlToken{ .type = XmlToken::TagClose, .text = "?>" }));
-    QVERIFY(xmlReader1->NextToken() ==
-            (XmlToken{ .type = XmlToken::Text, .text = "\r\n" }));
+    const auto& t1 = xmlReader1->NextToken();
+    QVERIFY(t1 == (XmlToken{ .type = XmlToken::Text, .text = "\n" }) ||
+            t1 == (XmlToken{ .type = XmlToken::Text, .text = "\r\n" }));
     QVERIFY(xmlReader1->NextToken() ==
             (XmlToken{ .type = XmlToken::TagOpen, .text = "<" }));
     QVERIFY(xmlReader1->NextToken() ==
             (XmlToken{ .type = XmlToken::TagName, .text = "book" }));
     QVERIFY(xmlReader1->NextToken() ==
             (XmlToken{ .type = XmlToken::TagClose, .text = ">" }));
-    QVERIFY(xmlReader1->NextToken() ==
-            (XmlToken{ .type = XmlToken::Text, .text = "\r\n\t" }));
+    const auto& t2 = xmlReader1->NextToken();
+    QVERIFY(t2 == (XmlToken{ .type = XmlToken::Text, .text = "\n\t" }) ||
+            t2 == (XmlToken{ .type = XmlToken::Text, .text = "\r\n\t" }));
     QVERIFY(xmlReader1->NextToken() ==
             (XmlToken{ .type = XmlToken::TagOpen, .text = "<" }));
     for (int i = 0; i < 19; ++i)
@@ -113,8 +115,9 @@ void tst_XmlReader::testNextToken2()
             (XmlToken { .type = XmlToken::TagOpen, .text = "</"}));
     QVERIFY(xmlReader2->NextToken() ==
             (XmlToken { .type = XmlToken::TagName, .text = "author"}));
-    QVERIFY(xmlReader2->NextToken() ==
-            (XmlToken { .type = XmlToken::InS, .text = "\r\n"}));
+    const auto& t1 = xmlReader2->NextToken();
+    QVERIFY(t1 == (XmlToken { .type = XmlToken::InS, .text = "\n"}) ||
+            t1 == (XmlToken { .type = XmlToken::InS, .text = "\r\n"}));
     QVERIFY(xmlReader2->NextToken() ==
             (XmlToken { .type = XmlToken::InvTagEnding, .text = "</book>"}));
     QVERIFY(xmlReader2->NextToken().type == XmlToken::End);

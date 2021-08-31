@@ -24,28 +24,43 @@ SOURCES += \
     testtools.cpp \
     tst_testtools.cpp
 
-INCLUDEPATH += ../Application/src \
+!isEmpty(XMLINCLUDEPATH) {
+INCLUDEPATH += \
     $$XMLINCLUDEPATH \
     $$XMLINCLUDEPATH/libxml2
+}
 
-CONFIG(debug, debug|release){
-    LIBS += $$shadowed($$PWD)/../Application/debug/tools.o \
-            $$shadowed($$PWD)/../Application/debug/xsltutils.o \
-            $$shadowed($$PWD)/../Application/debug/XmlPatterns.o \
-            $$shadowed($$PWD)/../Application/debug/XmlReader.o \
-            $$shadowed($$PWD)/../Application/debug/XmlHighlight.o }
-CONFIG(release, debug|release){
-    LIBS += $$shadowed($$PWD)/../Application/release/tools.o \
-            $$shadowed($$PWD)/../Application/release/xsltutils.o \
-            $$shadowed($$PWD)/../Application/release/XmlPatterns.o \
-            $$shadowed($$PWD)/../Application/release/XmlReader.o \
-            $$shadowed($$PWD)/../Application/release/XmlHighlight.o }
+INCLUDEPATH += \
+    ../Application/src
+
+LIBS += $$shadowed($$PWD)/../Application/tools.o \
+        $$shadowed($$PWD)/../Application/xsltutils.o \
+        $$shadowed($$PWD)/../Application/XmlPatterns.o \
+        $$shadowed($$PWD)/../Application/XmlReader.o \
+        $$shadowed($$PWD)/../Application/XmlHighlight.o
+
+#CONFIG(debug, debug|release){
+#    LIBS += $$shadowed($$PWD)/../Application/debug/tools.o \
+#            $$shadowed($$PWD)/../Application/debug/xsltutils.o \
+#            $$shadowed($$PWD)/../Application/debug/XmlPatterns.o \
+#            $$shadowed($$PWD)/../Application/debug/XmlReader.o \
+#            $$shadowed($$PWD)/../Application/debug/XmlHighlight.o }
+#CONFIG(release, debug|release){
+#    LIBS += $$shadowed($$PWD)/../Application/release/tools.o \
+#            $$shadowed($$PWD)/../Application/release/xsltutils.o \
+#            $$shadowed($$PWD)/../Application/release/XmlPatterns.o \
+#            $$shadowed($$PWD)/../Application/release/XmlReader.o \
+#            $$shadowed($$PWD)/../Application/release/XmlHighlight.o }
+
+!isEmpty(XMLLIBPATH) {
+LIBS += \
+    -L$$XMLLIBPATH
+}
 
 LIBS += \
-    -L$$XMLLIBPATH \
     -lxml2 \
     -lxslt \
-    -llibarchive_static
+    -larchive
 
 DISTFILES +=
 

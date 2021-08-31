@@ -56,3 +56,8 @@ struct XmlToken
      */
     QString text;
 };
+
+inline bool operator==(const XmlToken& t1, const XmlToken& t2)
+{
+    return t1.type == t2.type && t1.text == t2.text;
+}

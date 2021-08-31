@@ -33,11 +33,18 @@ HEADERS  += \
 FORMS    += \
     src/Window.ui
 
-INCLUDEPATH += $$XMLINCLUDEPATH \
+!isEmpty(XMLINCLUDEPATH) {
+INCLUDEPATH += \
+    $$XMLINCLUDEPATH \
     $$XMLINCLUDEPATH/libxml2
+}
+
+!isEmpty(XMLLIBPATH) {
+LIBS += \
+    -L$$XMLLIBPATH
+}
 
 LIBS += \
-    -L$$XMLLIBPATH \
     -lxml2 \
     -lxslt
 
@@ -46,5 +53,7 @@ DISTFILES += \
 
 RESOURCES += \
     resources.qrc
+
+
 
 RC_ICONS = resources/icon.ico
